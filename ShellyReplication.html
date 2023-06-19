@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Turtle Code Interpreter</title>
+    <style>
+      body {
+        background-color: black;
+        color: white;
+        font-family: Arial, sans-serif;
+      }
+
+      h1 {
+        color: blue;
+        text-align: center;
+      }
+
+      #canvas {
+        position: relative;
+        width: 400px;
+        height: 400px;
+        margin: 0 auto;
+        border: 1px solid blue;
+      }
+
+      #turtle {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
+
+      .line {
+        position: absolute;
+        background-color: blue;
+      }
+
+      #codeInput {
+        background-color: black;
+        color: white;
+        border: 1px solid blue;
+      }
+
+      button {
+        background-color: blue;
+        color: white;
+        border: none;
+        padding: 8px 16px;
+        cursor: pointer;
+      }
+    </style>
+    <script>
+      // Function to interpret and execute turtle commands
+      function interpretCode() {
+        var codeInput = document.getElementById("codeInput").value;
+        var commands = codeInput.split("\n");
+
+        var canvas = document.getElementById("canvas");
+        var turtle = document.getElementById("turtle");
+        var turtleX = canvas.offsetWidth / 2;
+        var turtleY = canvas.offsetHeight / 2;
+        var turtleAngle = 0;
+
+        var trail = document.createElement("div");
+        trail.classList.add("line");
+        trail.style.width = "1px";
+        trail.style.height = "1px";
+        trail.style.backgroundColor = "blue";
+        trail.style.top = turtleY + "px";
+        trail.style.left = turtleX + "px";
+        canvas.appendChild(trail);
+
+        for (var i = 0; i < commands.length; i++) {
+          var command = commands[i].trim().split(" ");
+          var action = command[0];
+          var value = parseInt(command[1]);
+
+          if (action === "forward") {
+            var newX =
+              turtleX + value * Math.cos((turtleAngle * Math.PI) / 180);
+            var newY =
+              turtleY - value * Math.sin((turtleAngle * Math.PI) / 180);
+            createLine(turtleX, turtleY, newX, newY);
+            turtleX = newX;
+            turtleY = newY;
+          } else if (action === "left") {
+            turtleAngle += value;
+          } else if (action === "right") {
+            turtleAngle -= value;
+          }
+        }
+
+        turtle.style.top = turtleY + "px";
+        turtle.style.left = turtleX + "px";
+        turtle.style.transform = "rotate(" + turtleAngle + "deg)";
+      }
+
+      // Function to create a line segment
+      function createLine(x1, y1, x2, y2) {
+        var line = document.createElement("div");
+        line.classList.add("line");
+
+        var length = Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
+        line.style.width = length + "px";
+        line.style.height = "1px";
+        line.style.backgroundColor = "blue";
+        line.style.top = y1 + "px";
+        line.style.left = x1 + "px";
+        line.style.transformOrigin = "0 0";
+        var angle = Math.atan2(y2 - y1, x2 - x1) * (180 / Math.PI);
+        line.style.transform = "rotate(" + angle + "deg)";
+
+        var canvas = document.getElementById("canvas");
+        canvas.appendChild(line);
+      }
+    </script>
+  </head>
+  <body>
+    <h1>Turtle Code Interpreter</h1>
+    <textarea id="codeInput" rows="10" cols="50"></textarea>
+    <button onclick="interpretCode()">Run</button>
+    <div id="canvas">
+      <div id="turtle">o</div>
+    </div>
+  </body>
+</html>
