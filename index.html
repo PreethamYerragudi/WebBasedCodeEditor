@@ -1,125 +1,74 @@
 <!DOCTYPE html>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anta&display=swap" rel="stylesheet">
+<head>
+</head>
+
 <html>
-  <head>
-    <title>Turtle Code Interpreter</title>
+    <body>
+            <div id = "intro">
+                    <h1 id="slow_scroll" align="center">Preetham Yerragudi</h1>
+                    <p>* * Software Engineer * *</p>
+                    <img src="GitHub.png" alt="GitHub" id="github">
+            </div>
+
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde ratione porro cupiditate. Ab voluptate, impedit eligendi dolore fugit soluta provident id inventore quod delectus quia omnis. Incidunt saepe quod possimus.</p>
+
+    </body>
+    
     <style>
-      body {
-        background-color: black;
-        color: white;
-        font-family: Arial, sans-serif;
-      }
+        #github{
+            color: white;
+            height: 7%;
+            width: 3%;
+        }
+        #intro {
+            margin: 0;
+            width: 100%;
+            background-size: 100% 100%;
+            background: rgb(2,0,36);
+            background: radial-gradient(circle, rgba(2,0,36,1) 7%, rgba(0,0,0,1) 99%, rgba(0,26,110,1) 100%);
+            background-attachment: fixed;
+        }
+        body{
+            background-color: #C4CAD0;
+            margin: 0;
+            min-height: 200vh;
+        }
+        p{
+            text-shadow: 1px 1px 2px black;
+            text-align: center;
+            color:#575b68;
+            font-size: 50px;
+            font-family: 'Anta', Times, serif;
+            margin-bottom: 0%;
+            text-shadow: 20px,black;
 
-      h1 {
-        color: blue;
-        text-align: center;
-      }
+        }
+        h1{
+            padding-bottom: 5%;
+            display: relative;
+            margin: auto;
+            letter-spacing: 20px;
+            font-family: 'Anta', sans-serif;
+            font-size: 80px;
+            color: #575b68;
+            text-shadow: 20px,rgb(246, 250, 204);
+            transition: 2s;
+        }
+        h1:hover{
 
-      #canvas {
-        position: relative;
-        width: 400px;
-        height: 400px;
-        margin: 0 auto;
-        border: 1px solid blue;
-      }
-
-      #turtle {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-      }
-
-      .line {
-        position: absolute;
-        background-color: blue;
-      }
-
-      #codeInput {
-        background-color: black;
-        color: white;
-        border: 1px solid blue;
-      }
-
-      button {
-        background-color: blue;
-        color: white;
-        border: none;
-        padding: 8px 16px;
-        cursor: pointer;
-      }
-    </style>
-    <script>
-      // Function to interpret and execute turtle commands
-      function interpretCode() {
-        var codeInput = document.getElementById("codeInput").value;
-        var commands = codeInput.split("\n");
-
-        var canvas = document.getElementById("canvas");
-        var turtle = document.getElementById("turtle");
-        var turtleX = canvas.offsetWidth / 2;
-        var turtleY = canvas.offsetHeight / 2;
-        var turtleAngle = 0;
-
-        var trail = document.createElement("div");
-        trail.classList.add("line");
-        trail.style.width = "1px";
-        trail.style.height = "1px";
-        trail.style.backgroundColor = "blue";
-        trail.style.top = turtleY + "px";
-        trail.style.left = turtleX + "px";
-        canvas.appendChild(trail);
-
-        for (var i = 0; i < commands.length; i++) {
-          var command = commands[i].trim().split(" ");
-          var action = command[0];
-          var value = parseInt(command[1]);
-
-          if (action === "forward") {
-            var newX =
-              turtleX + value * Math.cos((turtleAngle * Math.PI) / 180);
-            var newY =
-              turtleY - value * Math.sin((turtleAngle * Math.PI) / 180);
-            createLine(turtleX, turtleY, newX, newY);
-            turtleX = newX;
-            turtleY = newY;
-          } else if (action === "left") {
-            turtleAngle += value;
-          } else if (action === "right") {
-            turtleAngle -= value;
-          }
+            color: #7a8092;
+            cursor: default;
+            letter-spacing: 30px;
         }
 
-        turtle.style.top = turtleY + "px";
-        turtle.style.left = turtleX + "px";
-        turtle.style.transform = "rotate(" + turtleAngle + "deg)";
-      }
+    </style>
+    <script>
+        const intro_bg = document.getElementById("intro")
 
-      // Function to create a line segment
-      function createLine(x1, y1, x2, y2) {
-        var line = document.createElement("div");
-        line.classList.add("line");
-
-        var length = Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
-        line.style.width = length + "px";
-        line.style.height = "1px";
-        line.style.backgroundColor = "blue";
-        line.style.top = y1 + "px";
-        line.style.left = x1 + "px";
-        line.style.transformOrigin = "0 0";
-        var angle = Math.atan2(y2 - y1, x2 - x1) * (180 / Math.PI);
-        line.style.transform = "rotate(" + angle + "deg)";
-
-        var canvas = document.getElementById("canvas");
-        canvas.appendChild(line);
-      }
+        intro_bg.style.height = screen.height/1.5+'px';
+        intro_bg.style.paddingTop = (screen.height/1.5)/3+'px'
     </script>
-  </head>
-  <body>
-    <h1>Turtle Code Interpreter</h1>
-    <textarea id="codeInput" rows="10" cols="50"></textarea>
-    <button onclick="interpretCode()">Run</button>
-    <div id="canvas">
-      <div id="turtle">o</div>
-    </div>
-  </body>
 </html>
